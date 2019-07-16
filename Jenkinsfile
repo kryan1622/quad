@@ -12,17 +12,17 @@ agent any
                                 sh "kubectl apply -f ./server"
                         }
                 }
-                stage('---delete---'){
+                stage('---delete2---'){
                         steps{
                                 sh "kubectl apply -f ./client"
                         }
                 }
-                stage('---rebuild---'){
+                stage('---rebuild2---'){
                         steps{
                                 sh "kubectl apply -f ./client"
                         }
                 }
-                stage('---rebuild---'){
+                stage('---rebuild3---'){
                         steps{
                                 sh "kubectl apply -f ./nginx"
                         }
