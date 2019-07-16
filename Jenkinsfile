@@ -1,17 +1,28 @@
 pipeline{
 	agent any
         stages{
-		stage('---clean---'){
-                        steps{
-                               sh "kubectl delete -f ./nginx/config-map.yaml"
-                               sh "kubectl delete -f ./nginx/deployments.yaml"
-                        }
-                }
 		stage('---get pods---'){
                         steps{
                                sh "kubectl get pods"
                         }
                 }
+		
+                stage('---docker---'){
+                        steps{
+                                 sh "sudo docker ps"
+                                 sh "sudo docker-compose build client"
+                                 sh "sudo docker-compose build server"
+                                 sh "sudo docker-compose build nginx"
+                                 sh "sudo docker push kryan1622/kube/my/server:latest"
+                                 sh "sudo docker push kryan1622/kube/my/client:latest"
+                        }
+                }
+
+		stage('---patches---'){
+                        steps{
+                                 sh "kubectl patch deployment server -p "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"date\":\"`date +'%s'`\"}}}}}""
+                                 sh "kubectl patch deployment client -p "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"date\":\"`date +'%s'`\"}}}}}""
+
 		stage('---mongo---'){
                         steps{
                                sh "kubectl apply -f ./mongo/pod.yaml"
@@ -33,17 +44,7 @@ pipeline{
 			steps{
 				sh "kubectl apply -f ./nginx"
 			}
-		}
-                stage('---docker---'){
-                        steps{
-                                 sh "sudo docker ps"
-                                 sh "sudo docker-compose build client"
-                                 sh "sudo docker-compose build server"
-                                 sh "sudo docker-compose build nginx"
-                                 sh "sudo docker push kryan1622/kube/my/server:latest"
-                                 sh "sudo docker push kryan1622/kube/my/client:latest"
-                        }
-                }		
+		}		
 	}
 }
 
