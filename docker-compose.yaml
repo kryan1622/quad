@@ -17,14 +17,14 @@ services:
         - client
         - server
     server:
-      image:/my/server
+      image: localhost:5000/my/server
       build:
         context: ./server
         dockerfile: Dockerfile
       ports:
       - "8082:8081"
     client:
-      image: /my/client
+      image: localhost:5000/my/client
       build:
         context: ./client
         dockerfile: Dockerfile
