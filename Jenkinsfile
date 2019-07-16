@@ -14,7 +14,8 @@ pipeline{
                 }
 		stage('---mongo---'){
                         steps{
-                               sh "kubectl apply -f ./mongo/data"
+                               sh "kubectl apply -f ./mongo/pod.yaml"
+                               sh "kubectl apply -f ./mongo/service.yaml"
                         }
                 }
 		stage('---client---'){
