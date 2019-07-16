@@ -38,6 +38,7 @@ pipeline{
                         steps{
                                  sh "sudo docker ps"
                                  sh "sudo docker-compose build client"
+                                 sh "sudo docker-compose build server"
                                  sh "sudo docker-compose build nginx"
                         }
                 }		
