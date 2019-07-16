@@ -17,7 +17,7 @@ services:
         - client
         - server
     server:
-      image: /my/server
+      image:localhost:5000/my/server
       build:
         context: ./server
         dockerfile: Dockerfile
