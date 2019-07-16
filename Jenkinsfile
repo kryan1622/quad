@@ -40,6 +40,8 @@ pipeline{
                                  sh "sudo docker-compose build client"
                                  sh "sudo docker-compose build server"
                                  sh "sudo docker-compose build nginx"
+                                 sh "sudo docker push kryan1622/kube/my/server:latest"
+                                 sh "sudo docker push kryan1622/kube/my/client:latest"
                         }
                 }		
 	}
