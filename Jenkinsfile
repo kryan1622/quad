@@ -4,7 +4,7 @@ pipeline{
 		stage('---clean---'){
                         steps{
                                sh "kubectl delete -f ./nginx/config-map.yaml"
-                               sh "kubectl delete -f ./nginx/deployment.yaml"
+                               sh "kubectl delete -f ./nginx/deployments.yaml"
                         }
                 }
 		stage('---get pods---'){
