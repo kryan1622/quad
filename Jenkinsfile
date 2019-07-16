@@ -1,13 +1,13 @@
 pipeline{
 agent any
         stages{ 
-		stage('---delete---'){
+		stage('---delete1---'){
                         steps{
                                 sh "kubectl delete -f ./server"
                         }
                 }
 
-                stage('---rebuild---'){
+                stage('---rebuild1---'){
                         steps{
                                 sh "kubectl apply -f ./server"
                         }
