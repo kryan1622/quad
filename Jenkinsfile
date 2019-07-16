@@ -36,7 +36,7 @@ pipeline{
 		}
                 stage('---docker---'){
                         steps{
-                                 sh "docker ps"
+                                 sh "sudo docker ps"
                         }
                 }		
 	}
