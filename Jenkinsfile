@@ -1,31 +1,38 @@
 pipeline{
-agent any
-        stages{ 
-		stage('---delete1---'){
+	agent any
+        stages{
+		stage('---clean---'){
                         steps{
-                                sh "kubectl delete -f ./server"
+                               sh "kubectl delete -f ./nginx/config-map.yaml"
+                               sh "kubectl delete -f ./nginx/deployment.yaml"
                         }
                 }
-
-                stage('---rebuild1---'){
+		stage('---get pods---'){
                         steps{
-                                sh "kubectl apply -f ./server"
+                               sh "kubectl get pods"
                         }
                 }
-                stage('---delete2---'){
+		stage('---mongo---'){
                         steps{
-                                sh "kubectl apply -f ./client"
+                               sh "kubectl apply -f ./mongo/data"
                         }
                 }
-                stage('---rebuild2---'){
-                        steps{
-                                sh "kubectl apply -f ./client"
-                        }
-                }
-                stage('---rebuild3---'){
-                        steps{
-                                sh "kubectl apply -f ./nginx"
-                        }
-                }
-        }
+		stage('---client---'){
+			steps{
+				sh "kubectl apply -f ./client/deployment.yaml"
+				sh "kubectl apply -f ./client/service.yaml"
+			}
+		}
+		stage('---server---'){
+			steps{
+				sh "kubectl apply -f ./server"
+			}
+		}
+		stage('---nginx---'){
+			steps{
+				sh "kubectl apply -f ./nginx"
+			}
+		}		
+	}
 }
+
