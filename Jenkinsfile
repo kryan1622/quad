@@ -37,7 +37,7 @@ pipeline{
                 stage('---docker---'){
                         steps{
                                  sh "sudo docker ps"
-                                 sh "docker-compose build client"
+                                 sh "sudo docker-compose build client"
                         }
                 }		
 	}
