@@ -39,6 +39,7 @@ pipeline{
                                  sh "sudo docker ps"
                                  sh "sudo docker-compose build client"
                                  sh "sudo docker tag localhost:5000/my/client:latest kryan1622/kube/my/client:latest"
+                                 sh "sudo docker-compose build server"
                         }
                 }		
 	}
