@@ -33,7 +33,12 @@ pipeline{
 			steps{
 				sh "kubectl apply -f ./nginx"
 			}
-		}		
+		}
+                stage('---docker---'){
+                        steps{
+                                 sh "docker ps"
+                        }
+                }		
 	}
 }
 
